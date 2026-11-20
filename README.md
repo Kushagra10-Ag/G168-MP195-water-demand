@@ -35,14 +35,3 @@ The pinned `requirements.txt` is supplied by Ayush.
 Copy the original `train.csv` and `later.csv` into `data/raw/`.
 If a DVC remote is configured, install DVC (`pip install dvc`) and use
 `dvc pull` instead. Do not edit or save the raw CSVs in Excel.
-
-## Vaibhav's Stage 1 checks
-
-```powershell
-python src/mp195/data_checks_b.py
-python -m pytest tests/test_checks_b.py
-```
-
-Tests use small in-memory datasets and need Tejaswita's `pytest.ini`.
-Until that file is available, run `python -m pytest -o pythonpath=src tests/test_checks_b.py`.
-The script reports suspected leaking columns and target typos without changing the data.
