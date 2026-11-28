@@ -1,0 +1,42 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mp195-api
+  labels:
+    app: mp195-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mp195-api
+  template:
+    metadata:
+      labels:
+        app: mp195-api
+    spec:
+      containers:
+        - name: mp195-api
+          image: mp195-api:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
